@@ -186,7 +186,7 @@ def main():
     # Scrape products
     scraper.scrape_all_products(category_url)
     # Save to both Excel and CSV
-    # scraper.save_to_excel('amorethica_products.xlsx')
+    scraper.save_to_excel('graff_products.xlsx')
 
     # Display summary
     if scraper.products_data:
