@@ -126,8 +126,9 @@ class ShopifyProductScraper:
                 img_url = img_url.split('?')[0]
                 images.append(img_url)
             # 
+            protocol = 'https:'
             # Set the first image as the main image
-            product_data['Image Src'] = images[0] + '; ' + images[1] + '; ' + images[2]
+            product_data['Image Src'] = protocol + images[0] + '; ' + protocol + images[1] + '; ' + protocol + images[2]
 
             # Generate Handle and ID
             product_data['Handle'] = title_elem.get_text(strip=True).lower().replace(' ', '-').replace('.', '-')
