@@ -86,7 +86,8 @@ class ShopifyProductScraper:
                 'Variant Image': '',
                 'Variant Price': '',
                 'Variant Compare At Price': '',
-                'Variant Inventory Qty': ''
+                'Variant Inventory Qty': '',
+                'Tags': 'men'
             }
             
             # Extract title
@@ -111,10 +112,11 @@ class ShopifyProductScraper:
                     break
 
             # Extract Body HTML
-            desc_selectors = ['.wd-collapsible-content', '.e-con-inner', '.elementor-widget-wd_single_product_content']
+            desc_selectors = ['.elementor-widget-wd_single_product_content']
             desc_elem = None
             for selector in desc_selectors:
                 possible = soup.select_one(selector)
+                print(possible)
                 if possible:
                     desc_elem = possible
                     break
@@ -124,8 +126,8 @@ class ShopifyProductScraper:
             # Extract up to 3 images with the same class name from the product page
             images = []
             img_selector = 'img[class*="attachment-148x0"]'
-            img_elements = soup.select(img_selector)
-            for img in img_elements[:2]:  # Get up to 3 images
+            img_elements = soup.select(img_selector)    
+            for img in img_elements[:3]:  # Get up to 3 images
                 img_url = img.get('srcset')
                 img_url = img_url.split('?')[0]
                 images.append(img_url)
