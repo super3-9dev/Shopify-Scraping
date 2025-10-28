@@ -35,13 +35,7 @@ class ShopifyProductScraper:
         product_links = []
         
         # Common selectors for product links
-        selectors = [
-            'a[href*="/product/"]',
-            'a[href*="/products/"]',
-            '.product-item a',
-            '.woocommerce-loop-product__link',
-            '.product-image-link'
-        ]
+        selectors = ['.itemMediaWrapper--fQdARDQeYo1oQ4TnK2EY']
         
         for selector in selectors:
             links = soup.select(selector)
@@ -87,6 +81,7 @@ class ShopifyProductScraper:
                 'Variant Price': '',
                 'Variant Compare At Price': '',
                 'Variant Inventory Qty': '',
+                # You can change the tags to the appropriate tags for the product
                 'Tags': 'men'
             }
             
@@ -152,7 +147,6 @@ class ShopifyProductScraper:
         
         # Get product links
         product_links = self.scrape_product_links(category_url)
-        
         if not product_links:
             print("No product links found!")
             return
@@ -187,13 +181,13 @@ class ShopifyProductScraper:
         print(f"Data saved to {file_path}")
 def main():
     # Initialize scraper
-    base_url = "https://www.amorethica.com"
-    category_url = "https://www.amorethica.com/product-category/engagement-rings/"
+    base_url = "https://www.bluenile.com"
+    category_url = "https://www.bluenile.com/engagement-rings/styles/vintage"
     scraper = ShopifyProductScraper(base_url)
     # Scrape products
     scraper.scrape_all_products(category_url)
     # Save to both Excel and CSV
-    scraper.save_to_excel('amorethica_products.xlsx')
+    # scraper.save_to_excel('amorethica_products.xlsx')
 
     # Display summary
     if scraper.products_data:
