@@ -110,11 +110,20 @@ class ShopifyProductScraper:
             desc_selectors = 'div[class*="accordion__content"]'
             desc_elem = None
             possible = soup.select_one(desc_selectors)
-            print(possible)
             desc_elem = possible
             if desc_elem:
-                print(desc_elem)
-                product_data['Body HTML'] = desc_elem  # Limit length
+                # Find the <p> that contains "QUESTIONS"
+                target_p = soup.find("p", string=lambda t: t and "QUESTIONS" in t)
+
+                if target_p:
+                    # Remove the target <p>
+                    target_p.decompose()
+
+                    # Find the next <p> sibling (the one just under it)
+                    next_p = target_p.find_next_sibling("p")
+                    if next_p:
+                        next_p.decompose()
+                product_data['Body HTML'] = soup.prettify()  # Limit length
 
             # Extract up to 3 images with the same class name from the product page
             images = []
