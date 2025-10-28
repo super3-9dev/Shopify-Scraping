@@ -35,7 +35,7 @@ class ShopifyProductScraper:
         product_links = []
         
         # Common selectors for product links
-        selectors = ['.itemMediaWrapper--fQdARDQeYo1oQ4TnK2EY']
+        selectors = ['.product-card__media']
         
         for selector in selectors:
             links = soup.select(selector)
@@ -94,7 +94,7 @@ class ShopifyProductScraper:
                     break
             
             # Extract price
-            price_selectors = ['.price', '.woocommerce-Price-amount', '.amount', '[class*="price"]']
+            price_selectors = ['.price-list--product', '.sr-only']
             for selector in price_selectors:
                 price_elem = soup.select_one(selector)
                 if price_elem:
@@ -107,20 +107,18 @@ class ShopifyProductScraper:
                     break
 
             # Extract Body HTML
-            desc_selectors = ['.elementor-widget-wd_single_product_content']
+            desc_selectors = 'div[class*="accordion__content"]'
             desc_elem = None
-            for selector in desc_selectors:
-                possible = soup.select_one(selector)
-                print(possible)
-                if possible:
-                    desc_elem = possible
-                    break
+            possible = soup.select_one(desc_selectors)
+            print(possible)
+            desc_elem = possible
             if desc_elem:
+                print(desc_elem)
                 product_data['Body HTML'] = desc_elem  # Limit length
 
             # Extract up to 3 images with the same class name from the product page
             images = []
-            img_selector = 'img[class*="attachment-148x0"]'
+            img_selector = '.object-contain'
             img_elements = soup.select(img_selector)    
             for img in img_elements[:3]:  # Get up to 3 images
                 img_url = img.get('srcset')
@@ -181,13 +179,13 @@ class ShopifyProductScraper:
         print(f"Data saved to {file_path}")
 def main():
     # Initialize scraper
-    base_url = "https://www.bluenile.com"
-    category_url = "https://www.bluenile.com/engagement-rings/styles/vintage"
+    base_url = "https://twistedpendant.com"
+    category_url = "https://twistedpendant.com/collections/rings?page=1"
     scraper = ShopifyProductScraper(base_url)
     # Scrape products
     scraper.scrape_all_products(category_url)
     # Save to both Excel and CSV
-    # scraper.save_to_excel('amorethica_products.xlsx')
+    scraper.save_to_excel('twistedpendant_products.xlsx')
 
     # Display summary
     if scraper.products_data:
