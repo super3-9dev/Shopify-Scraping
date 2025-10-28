@@ -107,12 +107,13 @@ class ShopifyProductScraper:
                     break
 
             # Extract Body HTML
-            desc_selectors = ['.b-bnr__content-markup-field']
+            desc_selectors = ['.b-bnr__content-markup-field .h-text--h1-sm']
             desc_elem = None
             for selector in desc_selectors:
                 possible = soup.select_one(selector)
                 if possible:
-                    desc_elem = possible
+                    desc_elem = possible.parent
+                    print(desc_elem)
                     break
             if desc_elem:
                 product_data['Body HTML'] = desc_elem  # Limit length
@@ -127,7 +128,7 @@ class ShopifyProductScraper:
                 images.append(img_url)
             # 
             # Set the first image as the main image
-            product_data['Image Src'] = images[0] + '; ' + images[1]
+            product_data['Image Src'] = images[0] + '; ' + images[1] + '; ' + images[2]
 
             # Generate Handle and ID
             product_data['Handle'] = title_elem.get_text(strip=True).lower().replace(' ', '-').replace('.', '-')

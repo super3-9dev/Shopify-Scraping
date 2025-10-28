@@ -134,7 +134,7 @@ class ShopifyProductScraper:
                 images.append(img_url)
             # 
             # Set the first image as the main image
-            product_data['Image Src'] = images[0] + '; ' + images[1]
+            product_data['Image Src'] = images[0] + '; ' + images[1] + '; ' + images[2]
 
             # Generate Handle and ID
             product_data['Handle'] = title_elem.get_text(strip=True).lower().replace(' ', '-').replace('.', '-')
