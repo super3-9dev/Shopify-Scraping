@@ -5,6 +5,7 @@ import time
 import random
 import os
 from urllib.parse import urljoin
+import re
 
 class ShopifyProductScraper:
     def __init__(self, base_url):
@@ -94,18 +95,15 @@ class ShopifyProductScraper:
                     break
             
             # Extract price
-            price_selectors = ['.product-upsell__price', '.transcy-money']
-            for selector in price_selectors:
-                price_elem = soup.select_one(selector)
-                if price_elem:
-                    price_text = price_elem.get_text(strip=True)
-                    # Extract numeric price
-                    import re
-                    price_match = re.search(r'[\d,]+\.?\d*', price_text.replace(',', ''))
-                    if price_match:
-                        product_data['Variant Price'] = price_match.group()
-                    break
-
+            price_selectors = '.product__price'
+            price_elem = soup.select_one(price_selectors)
+            if price_elem:
+                price_text = price_elem.get_text(strip=True)
+                price_match = re.search(r'[\d,]+\.?\d*', price_text.replace(',', ''))
+                if price_match:
+                    product_data['Variant Price'] = price_match.group()
+                    print(product_data['Variant Price'])
+            
             # Extract Body HTML
             desc_selectors = ['.accordion__content']
             desc_elem = None

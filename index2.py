@@ -82,7 +82,7 @@ class ShopifyProductScraper:
                 'Variant Compare At Price': '',
                 'Variant Inventory Qty': '',
                 # You can change the tags to the appropriate tags for the product
-                'Tags': 'men,ring'
+                'Tags': 'women,ring'
             }
             
             # Extract title
@@ -133,8 +133,9 @@ class ShopifyProductScraper:
                 img_url = img_url.split('?')[0]
                 images.append(img_url)
             # 
+            protocol = 'https:'
             # Set the first image as the main image
-            product_data['Image Src'] = images[0] + '; ' + images[1]
+            product_data['Image Src'] = protocol + images[0] + '; ' + protocol + images[1] + '; ' + protocol + images[2]
 
             # Generate Handle and ID
             product_data['Handle'] = title_elem.get_text(strip=True).lower().replace(' ', '-').replace('.', '-')
