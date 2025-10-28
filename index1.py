@@ -117,7 +117,6 @@ class ShopifyProductScraper:
             desc_elem = None
             for selector in desc_selectors:
                 possible = soup.select_one(selector)
-                print(possible)
                 if possible:
                     desc_elem = possible
                     break
