@@ -113,7 +113,6 @@ class ShopifyProductScraper:
                 possible = soup.select_one(selector)
                 if possible:
                     desc_elem = possible.parent
-                    print(desc_elem)
                     break
             if desc_elem:
                 product_data['Body HTML'] = desc_elem  # Limit length
