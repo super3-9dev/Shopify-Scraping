@@ -82,7 +82,7 @@ class ShopifyProductScraper:
                 'Variant Compare At Price': '',
                 'Variant Inventory Qty': '',
                 # You can change the tags to the appropriate tags for the product
-                'Tags': 'men'
+                'Tags': "women,bracelets"
             }
             
             # Extract title
@@ -181,7 +181,7 @@ class ShopifyProductScraper:
 def main():
     # Initialize scraper
     base_url = "https://www.graff.com"
-    category_url = "https://www.graff.com/international-ar/jewellery-collections/view-by-category/bracelets-bangles/?srsltid=AfmBOophdsSHO0hJneZUY-T_jmj-bmmxB3T2GY7Izylx1xK0jzUEXRSV"
+    category_url = "https://www.graff.com/eu-en/jewellery-collections/view-by-collection/?cgid=jewellerycollections_viewbycollection_threads&start=8&sz=8&subcategories=%7B%22jewellerycollections_viewbycollection_laurencegraffsignature%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2256%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_laurencegraffsignature%22%7D%2C%22jewellerycollections_viewbycollection_butterfly%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2280%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_butterfly%22%7D%2C%22jewellerycollections_viewbycollection_wild_flower%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2232%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_wild_flower%22%7D%2C%22jewellerycollections_viewbycollection_bow%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2248%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_bow%22%7D%2C%22jewellerycollections_viewbycollection_classicgraff%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%22104%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_classicgraff%22%7D%2C%22jewellerycollections_viewbycollection_icon%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2264%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_icon%22%7D%2C%22jewellerycollections_viewbycollection_spiral%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2232%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_spiral%22%7D%2C%22jewellerycollections_viewbycollection_threads%22%3A%7B%22savedStart%22%3A%220%22%2C%22savedSz%22%3A%2216%22%2C%22changedCategoryId%22%3A%22jewellerycollections_viewbycollection_threads%22%7D%7D"
     scraper = ShopifyProductScraper(base_url)
     # Scrape products
     scraper.scrape_all_products(category_url)

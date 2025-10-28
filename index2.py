@@ -82,7 +82,7 @@ class ShopifyProductScraper:
                 'Variant Compare At Price': '',
                 'Variant Inventory Qty': '',
                 # You can change the tags to the appropriate tags for the product
-                'Tags': 'men'
+                'Tags': 'men,ring'
             }
             
             # Extract title
@@ -108,23 +108,21 @@ class ShopifyProductScraper:
 
             # Extract Body HTML
             desc_selectors = 'div[class*="accordion__content"]'
-            desc_elem = None
-            possible = soup.select_one(desc_selectors)
-            desc_elem = possible
+            desc_elem = soup.select_one(desc_selectors)
             if desc_elem:
+                print("Found description element")
+                # desc_elem is already a BeautifulSoup Tag, work with it directly
                 # Find the <p> that contains "QUESTIONS"
                 target_p = desc_elem.find("p", string=lambda t: t and "QUESTIONS" in t)
-
                 if target_p:
                     # Remove the target <p>
                     target_p.decompose()
-                    desc_elem = desc_elem.prettify()
-                    # Find the next <p> sibling (the one just under it)
-                    contactInfo = soup.find("p", string=lambda t: t and "@" in t)
-                    if contactInfo:
-                        contactInfo.decompose()
-                        desc_elem = desc_elem.prettify()
-                product_data['Body HTML'] = desc_elem  # Limit length
+
+                contactInfo = desc_elem.find("p", string=lambda t: t and "@" in t)
+                if contactInfo:
+                    contactInfo.decompose()
+                
+                product_data['Body HTML'] = str(desc_elem)  # Convert to string
 
             # Extract up to 3 images with the same class name from the product page
             images = []
