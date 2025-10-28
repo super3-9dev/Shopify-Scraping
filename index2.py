@@ -118,12 +118,13 @@ class ShopifyProductScraper:
                 if target_p:
                     # Remove the target <p>
                     target_p.decompose()
-
+                    desc_elem = desc_elem.prettify()
                     # Find the next <p> sibling (the one just under it)
-                    next_p = target_p.find_next_sibling("p")
-                    if next_p:
-                        next_p.decompose()
-                product_data['Body HTML'] = target_p.prettify()  # Limit length
+                    contactInfo = soup.find("p", string=lambda t: t and "@" in t)
+                    if contactInfo:
+                        contactInfo.decompose()
+                        desc_elem = desc_elem.prettify()
+                product_data['Body HTML'] = desc_elem  # Limit length
 
             # Extract up to 3 images with the same class name from the product page
             images = []
